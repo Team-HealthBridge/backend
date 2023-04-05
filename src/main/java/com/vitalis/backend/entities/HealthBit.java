@@ -19,6 +19,16 @@ public class HealthBit {
     @Column(name = "picture")
     private byte[] picture;
 
+    public HealthBit() {
+    }
+
+    public HealthBit(Long id, String category, String description, byte[] picture) {
+        this.id = id;
+        this.category = category;
+        this.description = description;
+        this.picture = picture;
+    }
+
     public Long getId() {
         return id;
     }
