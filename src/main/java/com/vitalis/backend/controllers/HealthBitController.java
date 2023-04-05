@@ -19,8 +19,11 @@ public class HealthBitController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<HealthBit>> getAllHealthBits(@RequestParam(defaultValue = "0") int page) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
+    public ResponseEntity<Page<HealthBit>> getAllHealthBits(
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size
+    ) {
+        PageRequest pageRequest = PageRequest.of(page, size);
         Page<HealthBit> healthBits = healthBitService.getAllHealthBits(pageRequest);
         return ResponseEntity.ok(healthBits);
     }
