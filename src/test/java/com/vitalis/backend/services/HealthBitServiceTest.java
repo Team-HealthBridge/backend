@@ -44,7 +44,7 @@ class HealthBitServiceTest {
             healthBit.setId((long) i);
             healthBit.setCategory("Fitness");
             healthBit.setDescription("Some tips on how to stay fit and healthy.");
-            healthBit.setPicture(new byte[]{1, 2, 3});
+            healthBit.setPictureUrl("https://images.unsplash.com/photo-1604480132736-44c188fe4d20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=990&q=80");
             healthBits.add(healthBit);
         }
 
@@ -72,7 +72,7 @@ class HealthBitServiceTest {
             healthBit.setId((long) i);
             healthBit.setCategory("Nutrition");
             healthBit.setDescription("Some advice on what to eat and drink.");
-            healthBit.setPicture(new byte[]{4, 5, 6});
+            healthBit.setPictureUrl("https://images.unsplash.com/photo-1604480132736-44c188fe4d20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=990&q=80");
             healthBits.add(healthBit);
         }
 
@@ -95,7 +95,7 @@ class HealthBitServiceTest {
         healthBit.setId(1L);
         healthBit.setCategory("Fitness");
         healthBit.setDescription("Some tips on how to stay fit and healthy.");
-        healthBit.setPicture(new byte[]{1, 2, 3});
+        healthBit.setPictureUrl("https://images.unsplash.com/photo-1604480132736-44c188fe4d20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=990&q=80");
 
         // mock the repository method to return the same object
         when(healthBitRepository.save(healthBit)).thenReturn(healthBit);
