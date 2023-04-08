@@ -16,17 +16,17 @@ public class HealthBit {
     @Column(name = "description")
     private String description;
 
-    @Column(name = "picture")
-    private byte[] picture;
+    @Column(name = "picture_url")
+    private String pictureUrl;
 
     public HealthBit() {
     }
 
-    public HealthBit(Long id, String category, String description, byte[] picture) {
+    public HealthBit(Long id, String category, String description, String pictureUrl) {
         this.id = id;
         this.category = category;
         this.description = description;
-        this.picture = picture;
+        this.pictureUrl = pictureUrl;
     }
 
     public Long getId() {
@@ -53,11 +53,11 @@ public class HealthBit {
         this.description = description;
     }
 
-    public byte[] getPicture() {
-        return picture;
+    public String getPictureUrl() {
+        return pictureUrl;
     }
 
-    public void setPicture(byte[] picture) {
-        this.picture = picture;
+    public void setPictureUrl(String picture) {
+        this.pictureUrl = picture;
     }
 }
