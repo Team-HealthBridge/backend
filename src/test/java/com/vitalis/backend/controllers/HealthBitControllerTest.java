@@ -62,7 +62,7 @@ class HealthBitControllerTest {
         when(healthBitService.getHealthBitsByCategory("Fitness", pageRequest)).thenReturn(healthBitPage);
 
         // Act
-        ResponseEntity<Page<HealthBit>> response = healthBitController.getHealthBitsByCategory("Fitness", 0);
+        ResponseEntity<Page<HealthBit>> response = healthBitController.getHealthBitsByCategory("Fitness", 0, 10);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
