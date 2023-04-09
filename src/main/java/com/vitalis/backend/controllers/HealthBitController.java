@@ -2,6 +2,7 @@ package com.vitalis.backend.controllers;
 
 import com.vitalis.backend.entities.HealthBit;
 import com.vitalis.backend.services.HealthBitService;
+import jakarta.validation.Valid;
 import org.springframework.data.domain.Page;
 import org.springframework.data.domain.PageRequest;
 import org.springframework.http.HttpStatus;
@@ -29,14 +30,17 @@ public class HealthBitController {
     }
 
     @GetMapping("/{category}")
-    public ResponseEntity<Page<HealthBit>> getHealthBitsByCategory(@PathVariable String category, @RequestParam(defaultValue = "0") int page) {
-        PageRequest pageRequest = PageRequest.of(page, 10);
+    public ResponseEntity<Page<HealthBit>> getHealthBitsByCategory(
+            @PathVariable String category,
+            @RequestParam(defaultValue = "0") int page,
+            @RequestParam(defaultValue = "10") int size) {
+        PageRequest pageRequest = PageRequest.of(page, size);
         Page<HealthBit> healthBits = healthBitService.getHealthBitsByCategory(category, pageRequest);
         return ResponseEntity.ok(healthBits);
     }
 
     @PostMapping
-    public ResponseEntity<HealthBit> createHealthBit(@RequestBody HealthBit healthBit) {
+    public ResponseEntity<HealthBit> createHealthBit(@Valid @RequestBody HealthBit healthBit) {
         HealthBit createdHealthBit = healthBitService.createHealthBit(healthBit);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdHealthBit);
     }
