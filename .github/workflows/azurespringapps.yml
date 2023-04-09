@@ -35,3 +35,5 @@ jobs:
           app-name: vitalis
           use-staging-deployment: false
           package: ${{ env.ASC_PACKAGE_PATH }}/**/*.jar
+        env:
+          spring_profiles_active: prod
