@@ -1,6 +1,7 @@
 package com.vitalis.backend.entities;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.*;
 
 @Entity
 @Table(name = "health_bits")
@@ -11,12 +12,17 @@ public class HealthBit {
     private Long id;
 
     @Column(name = "category")
+    @NotNull(message = "Category is required")
     private String category;
 
     @Column(name = "description")
+    @NotBlank(message = "Description is required")
+    @Size(min = 10,  message = "Description must be atleast 10 characters long")
     private String description;
 
     @Column(name = "picture_url")
+    @Pattern(regexp = "^(http|https)://[^\\s/$.?#].\\S*$", message = "Invalid URL format")
+    @NotEmpty(message = "Picture URL is required")
     private String pictureUrl;
 
     public HealthBit() {
