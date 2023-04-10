@@ -20,10 +20,10 @@ public interface HealthBitRepository extends JpaRepository<HealthBit, Long> {
     @Query("SELECT DISTINCT h.category FROM HealthBit h")
     List<String> findDistinctCategories();
 
-    @Query(value = "SELECT * FROM health_bits ORDER BY RAND()", nativeQuery = true)
+    @Query(value = "SELECT * FROM health_bits TABLESAMPLE BERNOULLI (10)", nativeQuery = true)
     Page<HealthBit> findRandom(Pageable pageRequest);
 
-    @Query(value = "SELECT * FROM health_bits WHERE category = :category ORDER BY RAND()", nativeQuery = true)
+    @Query(value = "SELECT * FROM health_bits WHERE category = :category TABLESAMPLE BERNOULLI (10)", nativeQuery = true)
     Page<HealthBit> findRandomByCategory(String category, Pageable pageRequest);
 }
 
