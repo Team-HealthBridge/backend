@@ -3,8 +3,11 @@ package com.vitalis.backend.services;
 import com.vitalis.backend.entities.HealthBit;
 import com.vitalis.backend.repositories.HealthBitRepository;
 import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
+
+import java.util.List;
 
 @Service
 public class HealthBitService {
@@ -25,5 +28,17 @@ public class HealthBitService {
 
     public HealthBit createHealthBit(HealthBit healthBit) {
         return healthBitRepository.save(healthBit);
+    }
+
+    public List<String> getHealthBitCategories() {
+        return healthBitRepository.findDistinctCategories();
+    }
+
+    public Page<HealthBit> getRandomHealthBits(Pageable pageRequest) {
+        return healthBitRepository.findRandom(pageRequest);
+    }
+
+    public Page<HealthBit> getRandomHealthBitsByCategory(String category, Pageable pageRequest) {
+        return healthBitRepository.findRandomByCategory(category, pageRequest);
     }
 }
