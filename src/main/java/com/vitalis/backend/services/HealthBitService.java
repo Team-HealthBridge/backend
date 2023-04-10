@@ -3,7 +3,6 @@ package com.vitalis.backend.services;
 import com.vitalis.backend.entities.HealthBit;
 import com.vitalis.backend.repositories.HealthBitRepository;
 import org.springframework.data.domain.Page;
-import org.springframework.data.domain.PageRequest;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
