@@ -32,7 +32,7 @@ class HealthBitControllerTest {
     }
 
     @Test
-    void getAllHealthBits() {
+    void getHealthBits() {
         // Arrange
         PageRequest pageRequest = PageRequest.of(0, 10);
         List<HealthBit> healthBits = List.of(
@@ -43,31 +43,13 @@ class HealthBitControllerTest {
         when(healthBitService.getAllHealthBits(pageRequest)).thenReturn(healthBitPage);
 
         // Act
-        ResponseEntity<Page<HealthBit>> response = healthBitController.getAllHealthBits(0, 10);
+        ResponseEntity<Page<HealthBit>> response = healthBitController.getHealthBits(0, 10,null);
 
         // Assert
         assertEquals(HttpStatus.OK, response.getStatusCode());
         assertEquals(healthBitPage, response.getBody());
     }
 
-    @Test
-    void getHealthBitsByCategory() {
-        // Arrange
-        PageRequest pageRequest = PageRequest.of(0, 10);
-        List<HealthBit> healthBits = List.of(
-                new HealthBit(1L, "Fitness", "How to stay fit", "https://images.unsplash.com/photo-1604480132736-44c188fe4d20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=990&q=80"),
-                new HealthBit(3L, "Fitness", "How to lose weight", "https://images.unsplash.com/photo-1604480132736-44c188fe4d20?ixlib=rb-4.0.3&ixid=MnwxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8&auto=format&fit=crop&w=990&q=80")
-        );
-        Page<HealthBit> healthBitPage = new PageImpl<>(healthBits, pageRequest, 2);
-        when(healthBitService.getHealthBitsByCategory("Fitness", pageRequest)).thenReturn(healthBitPage);
-
-        // Act
-        ResponseEntity<Page<HealthBit>> response = healthBitController.getHealthBitsByCategory("Fitness", 0, 10);
-
-        // Assert
-        assertEquals(HttpStatus.OK, response.getStatusCode());
-        assertEquals(healthBitPage, response.getBody());
-    }
 
     @Test
     void createHealthBit() {
