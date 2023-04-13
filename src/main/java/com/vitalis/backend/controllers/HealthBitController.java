@@ -22,11 +22,19 @@ public class HealthBitController {
     }
 
     @GetMapping
-    public ResponseEntity<Page<HealthBit>> getAllHealthBits(
+    public ResponseEntity<Page<HealthBit>> getHealthBits(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String category
     ) {
+
         PageRequest pageRequest = PageRequest.of(page, size);
+
+        if (category != null) {
+            Page<HealthBit> healthBits = healthBitService.getHealthBitsByCategory(category, pageRequest);
+            return ResponseEntity.ok(healthBits);
+        }
+
         Page<HealthBit> healthBits = healthBitService.getAllHealthBits(pageRequest);
         return ResponseEntity.ok(healthBits);
     }
@@ -34,9 +42,16 @@ public class HealthBitController {
     @GetMapping("/random")
     public ResponseEntity<Page<HealthBit>> getRandomHealthBit(
             @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size
+            @RequestParam(defaultValue = "10") int size,
+            @RequestParam(required = false) String category
     ) {
         PageRequest pageRequest = PageRequest.of(page, size);
+
+        if (category != null) {
+            Page<HealthBit> healthBits = healthBitService.getRandomHealthBitsByCategory(category, pageRequest);
+            return ResponseEntity.ok(healthBits);
+        }
+
         Page<HealthBit> healthBits = healthBitService.getRandomHealthBits(pageRequest);
         return ResponseEntity.ok(healthBits);
     }
@@ -47,30 +62,15 @@ public class HealthBitController {
         return ResponseEntity.ok(categories);
     }
 
-    @GetMapping("/{category}")
-    public ResponseEntity<Page<HealthBit>> getHealthBitsByCategory(
-            @PathVariable String category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Page<HealthBit> healthBits = healthBitService.getHealthBitsByCategory(category, pageRequest);
-        return ResponseEntity.ok(healthBits);
-    }
-
-    @GetMapping("/random/{category}")
-    public ResponseEntity<Page<HealthBit>> getRandomHealthBitsByCategory(
-            @PathVariable String category,
-            @RequestParam(defaultValue = "0") int page,
-            @RequestParam(defaultValue = "10") int size) {
-        PageRequest pageRequest = PageRequest.of(page, size);
-        Page<HealthBit> healthBits = healthBitService.getRandomHealthBitsByCategory(category, pageRequest);
-        return ResponseEntity.ok(healthBits);
-    }
-
-
     @PostMapping
     public ResponseEntity<HealthBit> createHealthBit(@Valid @RequestBody HealthBit healthBit) {
         HealthBit createdHealthBit = healthBitService.createHealthBit(healthBit);
         return ResponseEntity.status(HttpStatus.CREATED).body(createdHealthBit);
+    }
+
+    @DeleteMapping
+    public ResponseEntity<Object> deleteHealthBit(@Valid @RequestBody HealthBit healthBit) {
+        healthBitService.deleteHealthBit(healthBit);
+        return ResponseEntity.status(HttpStatus.NO_CONTENT).build();
     }
 }
