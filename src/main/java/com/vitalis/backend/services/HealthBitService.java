@@ -40,4 +40,8 @@ public class HealthBitService {
     public Page<HealthBit> getRandomHealthBitsByCategory(String category, Pageable pageRequest) {
         return healthBitRepository.findRandomByCategory(category, pageRequest);
     }
+
+    public void deleteHealthBit(HealthBit healthBit) {
+        healthBitRepository.delete(healthBit);
+    }
 }
