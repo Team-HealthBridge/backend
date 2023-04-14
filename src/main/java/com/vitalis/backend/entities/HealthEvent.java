@@ -2,7 +2,11 @@ package com.vitalis.backend.entities;
 
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotBlank;
+import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Pattern;
+
+import java.sql.Date;
+
 
 @Entity
 @Table(name = "health_events")
@@ -28,17 +32,17 @@ public class HealthEvent {
     private String learnMoreUrl;
 
     @Column(name = "start_date")
-    @NotBlank(message = "Start date is required")
-    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}$", message = "Invalid date format")
-    private String startDate;
+    @NotNull(message = "Start date is required")
+    @Temporal(TemporalType.DATE)
+    private Date startDate;
     @Column(name = "end_date")
-    @NotBlank(message = "End date is required")
-    @Pattern(regexp = "^(0[1-9]|[12][0-9]|3[01])/(0[1-9]|1[012])/[0-9]{4}$", message = "Invalid date format")
-    private String endDate;
+    @NotNull(message = "End date is required")
+    @Temporal(TemporalType.DATE)
+    private Date endDate;
 
     public HealthEvent() {
     }
-     public HealthEvent(Long id, String title, String description, String pictureUrl, String learnMoreUrl, String startDate, String endDate) {
+     public HealthEvent(Long id, String title, String description, String pictureUrl, String learnMoreUrl, Date startDate, Date endDate) {
          this.id = id;
          this.title = title;
          this.description = description;
@@ -88,19 +92,19 @@ public class HealthEvent {
         this.learnMoreUrl = learnMoreUrl;
     }
 
-    public String getStartDate() {
+    public Date getStartDate() {
         return startDate;
     }
 
-    public void setStartDate(String startDate) {
+    public void setStartDate(Date startDate) {
         this.startDate = startDate;
     }
 
-    public String getEndDate() {
+    public Date getEndDate() {
         return endDate;
     }
 
-    public void setEndDate(String endDate) {
+    public void setEndDate(Date endDate) {
         this.endDate = endDate;
     }
 }

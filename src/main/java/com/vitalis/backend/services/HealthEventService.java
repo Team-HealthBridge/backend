@@ -8,7 +8,9 @@ import org.springframework.data.domain.Pageable;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 
+import java.sql.Date;
 import java.time.LocalDate;
+
 
 @Service
 public class HealthEventService {
@@ -19,18 +21,16 @@ public class HealthEventService {
     }
 
     public ResponseEntity<?> getTodaysEvent() {
-        String todayString = getTodaysFormattedDate();
-        HealthEvent todaysEvent = healthEventsRepository.findByDate(todayString);
+        Date todayDate = getCurrentDate();
+        HealthEvent todaysEvent = healthEventsRepository.findByDate(todayDate);
         if (todaysEvent == null) {
             return ResponseEntity.notFound().build();
         }
         return ResponseEntity.ok(todaysEvent);
     }
 
-    private String getTodaysFormattedDate() {
-        LocalDate today = LocalDate.now();
-        String[] date = today.toString().split("-");
-        return date[2] + "/" + date[1] + "/" + date[0];
+    private Date getCurrentDate() {
+        return Date.valueOf(LocalDate.now());
     }
 
     public ResponseEntity<HealthEvent> createHealthEvent(HealthEvent healthEvent) {
