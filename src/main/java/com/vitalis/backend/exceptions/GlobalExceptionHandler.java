@@ -2,6 +2,7 @@ package com.vitalis.backend.exceptions;
 
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.ResponseEntity;
+import org.springframework.http.converter.HttpMessageNotReadableException;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
@@ -27,5 +28,12 @@ public class GlobalExceptionHandler{
     @ExceptionHandler(DataIntegrityViolationException.class)
     public ResponseEntity<String> handleInvalidCategory(DataIntegrityViolationException e) {
         return ResponseEntity.badRequest().body(e.getMessage());
+    }
+
+    @ExceptionHandler(HttpMessageNotReadableException.class)
+    public ResponseEntity<Object> handleInvalidCategory() {
+        Map<String, String> errors = new HashMap<>();
+        errors.put("message", "Invalid Date representation. Please use the format: yyyy-MM-dd");
+        return ResponseEntity.badRequest().body(errors);
     }
 }

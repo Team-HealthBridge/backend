@@ -1,0 +1,15 @@
+package com.vitalis.backend.repositories;
+
+import com.vitalis.backend.entities.HealthEvent;
+import org.springframework.data.jpa.repository.JpaRepository;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.stereotype.Repository;
+
+import java.sql.Date;
+
+
+@Repository
+public interface HealthEventsRepository extends JpaRepository<HealthEvent, Long> {
+    @Query("SELECT h FROM HealthEvent h WHERE h.startDate <= ?1 AND h.endDate >= ?1")
+    HealthEvent findByDate(Date today);
+}
